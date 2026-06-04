@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bardia Khalifeh, COMP710 game programming portfolio. Boxu stealth game, C++/SDL2/OpenGL engine work, and technical artefacts.">
+  <title>Bardia Khalifeh | Game Programmer Portfolio</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <script>document.documentElement.classList.add("js-scroll-reveal");</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="side-scroll side-scroll--left" aria-hidden="true">
+    <div class="side-scroll__track side-scroll__track--up">
+      <div class="side-scroll__strip">
+        <img src="assets/images/boxuSplash4.jpg" alt="" width="120" height="auto" decoding="async">
+        <img src="assets/images/boxuSplash4.jpg" alt="" width="120" height="auto" loading="lazy" decoding="async">
+        <img src="assets/images/boxuSplash4.jpg" alt="" width="120" height="auto" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+  <div class="side-scroll side-scroll--right" aria-hidden="true">
+    <div class="side-scroll__track side-scroll__track--down">
+      <div class="side-scroll__strip">
+        <img src="assets/images/boxuSplash4.jpg" alt="" width="120" height="auto" decoding="async">
+        <img src="assets/images/boxuSplash4.jpg" alt="" width="120" height="auto" loading="lazy" decoding="async">
+        <img src="assets/images/boxuSplash4.jpg" alt="" width="120" height="auto" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
+  <div class="page-frame">
+    <div class="page-frame-inner">
+      <header class="top-banner">
+        <div class="top-banner__title">Bardia Khalifeh · Game Programmer Portfolio</div>
+        <div class="top-banner__actions">
+          <a class="sticker" href="https://github.com/AMGKompressor/Boxu" target="_blank" rel="noopener noreferrer">View Source</a>
+          <a class="phone-callout" href="https://github.com/AMGKompressor/Boxu" target="_blank" rel="noopener noreferrer">github.com/AMGKompressor/Boxu</a>
+        </div>
+      </header>
+
+      <button type="button" class="mobile-nav-toggle" aria-expanded="false" aria-controls="side-nav">Menu</button>
+
+      <div class="catalog-layout">
+        <aside class="left-rail">
+          <nav aria-label="Section navigation">
+            <ul class="side-nav" id="side-nav">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#boxu">Boxu</a></li>
+              <li><a href="#demos">Tech Demos</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#team-project">Team Game</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+          <div class="cta-block-red">
+            At this portfolio you will find stealth game systems, engine code, and the documentation behind <strong>Boxu v0.5 alpha</strong>, built for COMP710 at AUT.
+          </div>
+          <div class="cert-seals" aria-label="Course portfolios">
+            <span class="cert-seal cert-seal--comp710 cert-seal--current">COMP710<br>2026</span>
+            <a class="cert-seal cert-seal--comp612" href="comp612.html" title="Earlier work: COMP612 graphics projects">COMP612<br>2025</a>
+          </div>
+        </aside>
+
+        <main class="main-stack" id="main">
+
+          <!-- HOME -->
+          <section class="section-block" id="home" aria-labelledby="home-heading">
+            <h1 class="display-title" id="home-heading">Bardia Khalifeh</h1>
+            <p class="lede">Game programmer specialising in C++ engine systems, stealth AI, collision, and real-time shaders, demonstrated through <strong>Boxu</strong>, a top-down stealth prototype developed across COMP710 (April–May 2026).</p>
+            <p class="lede">Sneak past the enemy. Collect the keycard. Reach extraction without being caught.</p>
+            <a class="btn btn--primary" href="#boxu">View Boxu</a>
+            <a class="btn btn--secondary" href="https://github.com/AMGKompressor/Boxu" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+
+            <article class="ribbon-card hero-card" data-animate="card">
+              <span class="sticker sticker--new" aria-hidden="true">NEW!</span>
+              <h2 class="ribbon-card__title">Featured: Boxu v0.5 Alpha</h2>
+              <div class="ribbon-card__body ribbon-card__body--salmon hero-with-photo">
+                <div>
+                  <p class="field-label">Purpose</p>
+                  <p>Boxu is a 2D top-down stealth strategy game focused on planning, observation, and precision. The player infiltrates a guarded area, completes an objective, and reaches extraction without being detected, all while stuck in a box that restricts their vision.</p>
+                  <p>Unlike action stealth games, Boxu removes combat entirely: every mistake matters, and detection results in failure. The player wins if the objective is complete and extraction is reached without capture; the player loses if caught.</p>
+                </div>
+                <figure class="hero-photo-notch">
+                  <img src="assets/images/boxuSplash4.jpg" alt="Boxu splash screen artwork" width="140" height="auto">
+                </figure>
+              </div>
+            </article>
+
+            <h2 class="section-eyebrow section-eyebrow--olive" id="engine-diagrams-heading">Core Engine Systems</h2>
+            <p class="lede">Simple animated diagrams below show how the main systems fit together: enemy AI, sneaking, and mission goals. More detailed demos are in <a class="text-link" href="#demos">Tech Demos</a>.</p>
+
+            <div class="engine-diagram-grid">
+              <article class="ribbon-card engine-diagram-card engine-diagram-card--fsm" data-animate="card" aria-labelledby="fsm-diagram-title">
+                <h3 class="ribbon-card__title" id="fsm-diagram-title">Enemy AI state machine</h3>
+                <div class="ribbon-card__body ribbon-card__body--peach">
+                  <p class="diagram-caption"><strong>Purpose:</strong> Show how the Enemy AI state machine works: Dormant until woken by sound or sight, then Investigate, Chase, or Search.</p>
+                  <div class="engine-diagram engine-diagram--fsm" id="diagram-fsm" role="img" aria-label="Animated diagram of Enemy AI states: Dormant, Investigate, Chase, Search">
+                    <svg class="engine-diagram__svg" viewBox="38 16 344 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <defs>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                          <polygon points="0 0, 8 3, 0 6" fill="#000"/>
+                        </marker>
+                      </defs>
+                      <g class="fsm-layout" transform="translate(32 4)">
+                        <g class="fsm-edges">
+                          <path class="fsm-edge" d="M 78 42 L 102 42" marker-end="url(#arrowhead)"/>
+                          <path class="fsm-edge" d="M 168 42 L 192 42" marker-end="url(#arrowhead)"/>
+                          <path class="fsm-edge" d="M 258 42 L 282 42" marker-end="url(#arrowhead)"/>
+                          <path class="fsm-edge fsm-edge--loop" d="M 330 68 C 330 98, 50 98, 50 68" marker-end="url(#arrowhead)"/>
+                        </g>
+                        <g class="fsm-nodes">
+                          <g class="fsm-node" data-state="dormant">
+                            <rect x="8" y="18" width="70" height="48" fill="#b3bd95" stroke="#000" stroke-width="2"/>
+                            <text x="43" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="700">DORMANT</text>
+                          </g>
+                          <g class="fsm-node" data-state="investigate">
+                            <rect x="98" y="18" width="70" height="48" fill="#9ab6c8" stroke="#000" stroke-width="2"/>
+                            <text x="133" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="700">INVESTIGATE</text>
+                          </g>
+                          <g class="fsm-node" data-state="chase">
+                            <rect x="188" y="18" width="70" height="48" fill="#d77a7a" stroke="#000" stroke-width="2"/>
+                            <text x="223" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="700">CHASE</text>
+                          </g>
+                          <g class="fsm-node" data-state="search">
+                            <rect x="278" y="18" width="70" height="48" fill="#c0d4a7" stroke="#000" stroke-width="2"/>
+                            <text x="313" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="700">SEARCH</text>
+                          </g>
+                        </g>
+                        <text class="fsm-active-label" x="178" y="128" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="12" fill="#000">Enemy is waiting. Nothing has woken him yet</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <ul class="diagram-legend">
+                    <li><strong>Dormant:</strong> enemy waits until something wakes him up</li>
+                    <li><strong>Investigate:</strong> a footstep or wall bump was heard nearby</li>
+                    <li><strong>Chase:</strong> enemy can see Suneku in his vision cone</li>
+                    <li><strong>Search:</strong> you escaped sight, then he checks the area and calms down</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="ribbon-card engine-diagram-card" data-animate="card" aria-labelledby="perception-diagram-title">
+                <h3 class="ribbon-card__title" id="perception-diagram-title">Stealth Perception Stack</h3>
+                <div class="ribbon-card__body ribbon-card__body--periwinkle">
+                  <p class="diagram-caption"><strong>Purpose:</strong> Stealth depends on what Enemy can see and hear. The green wedge is his line of sight. If Suneku steps into it with nothing blocking the view, Enemy chases. The yellow ring is Enemy’s hearing radius: if Suneku makes noise inside that area, Enemy is woken and sent to investigate.</p>
+                  <div class="engine-diagram engine-diagram--tall" id="diagram-perception" role="img" aria-label="Top-down diagram: Suneku approaches Enemy, emits a noise pulse within hearing range, Enemy turns to investigate, Suneku retreats, loop repeats">
+                    <svg class="engine-diagram__svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect x="0" y="0" width="220" height="220" fill="#111" stroke="#000" stroke-width="2"/>
+                      <g class="perception-ocelot" transform="translate(110 110)">
+                        <circle class="perception-hearing" cx="0" cy="0" r="52" fill="none" stroke="#fcc20f" stroke-width="2" stroke-dasharray="6 4"/>
+                        <g class="perception-vision">
+                          <path class="perception-wedge" d="M 0 0 L 78 -32 A 84 84 0 0 1 78 32 Z" fill="rgba(179,189,149,0.85)" stroke="#b3bd95" stroke-width="1"/>
+                        </g>
+                        <circle class="perception-enemy" cx="0" cy="0" r="7" fill="#8c9ae0" stroke="#000" stroke-width="1"/>
+                        <text x="0" y="-12" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="700" fill="#fff">ENEMY</text>
+                      </g>
+                      <g class="perception-player">
+                        <circle class="perception-noise" cx="0" cy="0" r="28" fill="none" stroke="#e91d2a" stroke-width="2" opacity="0"/>
+                        <rect class="perception-player-body" x="-7" y="-7" width="14" height="14" fill="#8f6840" stroke="#000" stroke-width="1"/>
+                        <text x="0" y="14" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="7" font-weight="700" fill="#b3bd95">SUNEKU</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <ul class="diagram-legend">
+                    <li><strong>Green wedge</strong> shows where Enemy is looking. Step in and he may chase.</li>
+                    <li><strong>Yellow ring</strong> is Enemy’s hearing radius. Noise inside it triggers investigate.</li>
+                    <li><strong>Red pulse</strong> is noise from Suneku (footsteps, sprinting, hitting a wall)</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- BOXU -->
+          <section class="section-block" id="boxu" aria-labelledby="boxu-heading">
+            <h2 class="section-eyebrow section-eyebrow--salmon section-eyebrow--stacked" id="boxu-heading">
+              <span class="section-eyebrow__title">Boxu</span>
+              <span class="section-eyebrow__subtitle">Individual Game Project</span>
+            </h2>
+
+            <article class="ribbon-card" data-animate="card">
+              <h3 class="ribbon-card__title">Boxu v0.5 Alpha (stealth game)</h3>
+              <div class="ribbon-card__body ribbon-card__body--salmon">
+                <p class="field-label">Purpose</p>
+                <p>Individual Game Project for COMP710: a top-down stealth game where the player (Suneku) collects a keycard, reaches the south extraction zone, and avoids capture by Enemy.</p>
+
+                <p class="field-label">Challenge</p>
+                <p>Integrating movement, mouse-aim facing, collision, vision masking, noise propagation, and enemy AI into one coherent play loop on the course GP Framework.</p>
+
+                <p class="field-label">Approach</p>
+                <p>Built incrementally from the Apr 13 GP framework import through tagged alpha milestones on GitHub: v0.1 (hitbox + vision), mission loop (Apr 15), v0.2 AI and audio (Apr 27–29), then v0.5 Gold polish (May 11).</p>
+
+                <p class="field-label">Result</p>
+                <p>Playable vertical slice with win/lose states, HUD objectives, splash intro, footstep audio, and debug overlays for hitbox and hearing radius (H key).</p>
+
+                <p class="field-label">Reflection</p>
+                <p>Boxu never fully matched the scope I pitched in the GDD. COMP710 time pressure, a monolithic <code>game.cpp</code> that was hard to extend, and recurring technical issues like enemy chase ignoring walls, vision cone edge cases, and audio and shader path bugs, so I shipped a strong vertical slice rather than the full stealth experience I had in mind.</p>
+                <p>That ceiling turned out to be useful. The systems that did work (mouse-aim vision, noise propagation, mission loop, OBB collision) became the foundation for <a class="text-link" href="#team-project">cardBoardEngine</a>, where the group project could go further: modular layout, BFS pathfinding, minimap, multiple enemy types, and a Windows hand-in build. Boxu on this portfolio is the individual proof-of-concept; the engine repo is where the idea was actually pushed.</p>
+
+                <div class="gallery" role="list">
+                  <button type="button" class="gallery__item" aria-label="Enlarge splash screen">
+                    <img src="assets/images/boxuSplash4.jpg" alt="Boxu title splash screen" loading="lazy">
+                  </button>
+                  <button type="button" class="gallery__item" aria-label="Enlarge floor texture">
+                    <img src="assets/images/floorTex.png" alt="Boxu floor texture asset" loading="lazy">
+                  </button>
+                  <button type="button" class="gallery__item" aria-label="Enlarge enemy texture">
+                    <img src="assets/images/enemTex.png" alt="Enemy character texture asset" loading="lazy">
+                  </button>
+                </div>
+
+                <table class="data-table">
+                  <caption class="field-label">Controls</caption>
+                  <thead>
+                    <tr><th scope="col">Input</th><th scope="col">Action</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>WASD</td><td>Move Suneku (diagonal normalised)</td></tr>
+                    <tr><td>Mouse</td><td>Aim facing direction</td></tr>
+                    <tr><td>Shift</td><td>Sprint (louder footstep noise)</td></tr>
+                    <tr><td>H</td><td>Debug hitbox and noise pulse rings</td></tr>
+                    <tr><td>R</td><td>Restart after win/lose</td></tr>
+                    <tr><td>Esc</td><td>Quit</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="play-promo" id="play-boxu">
+                  <div class="play-promo__stickers">
+                    <a class="sticker sticker--promo-play" href="https://github.com/AMGKompressor/Boxu" target="_blank" rel="noopener noreferrer">Play Boxu · macOS</a>
+                    <span class="sticker sticker--promo-windows">Coming soon to Windows in 2127!</span>
+                  </div>
+                  <p class="play-promo__text">Open-source stealth alpha. Build from GitHub and run on Mac in a few minutes. Screenshots and demos above show the experience on any device.</p>
+                  <a class="sticker" href="https://github.com/AMGKompressor/Boxu" target="_blank" rel="noopener noreferrer">Get source on GitHub</a>
+                  <details class="site-disclosure play-promo__steps">
+                    <summary class="site-disclosure__summary">Build &amp; run on macOS</summary>
+                    <div class="site-disclosure__body">
+                      <p><strong>Requirements:</strong> macOS 12+, Xcode Command Line Tools, Homebrew. Install dependencies once:</p>
+                      <pre class="code-inset">brew install cmake sdl2 sdl2_image glew pkg-config</pre>
+                      <p><strong>Clone and build</strong></p>
+                      <pre class="code-inset">git clone https://github.com/AMGKompressor/Boxu.git
+cd Boxu/source
+cmake -S . -B ../temp/build-boxu -DCMAKE_BUILD_TYPE=Release
+cmake --build ../temp/build-boxu --config Release</pre>
+                      <p><strong>Run:</strong> launch from the <code>game</code> folder so textures, sounds, and shaders resolve:</p>
+                      <pre class="code-inset">cd ../game
+../temp/build-boxu/gpframework</pre>
+                      <p class="play-promo__note">Tip: if CMake cannot find SDL2, add Homebrew to your PATH (<code>brew --prefix</code>).</p>
+                    </div>
+                  </details>
+                </div>
+
+                <p class="field-label">Formal documents</p>
+                <p style="font-size:13px;margin:0;">Expand <a class="text-link" href="#projects">Projects → Formal documents &amp; downloads</a> for GHL, pitch, GDD, and TDD.</p>
+              </div>
+            </article>
+
+            <article class="ribbon-card engine-diagram-card engine-diagram-card--mission" data-animate="card" aria-labelledby="mission-diagram-title">
+              <h3 class="ribbon-card__title" id="mission-diagram-title">Mission loop state flow</h3>
+              <div class="ribbon-card__body ribbon-card__body--lime">
+                <p class="diagram-caption"><strong>Purpose:</strong> One run of Boxu: find the keycard, reach the south exit, and avoid capture. The diagram loops through win, lose, and restart.</p>
+                <div class="engine-diagram engine-diagram--mission" id="diagram-mission" role="img" aria-label="Animated mission flow: Playing, keycard pickup, extraction win, or caught and lost">
+                  <svg class="engine-diagram__svg" viewBox="4 10 516 132" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                      <marker id="mission-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#000"/>
+                      </marker>
+                    </defs>
+                    <g class="mission-edges">
+                      <path class="mission-edge" d="M 88 42 L 98 42" marker-end="url(#mission-arrow)"/>
+                      <path class="mission-edge" d="M 178 42 L 188 42" marker-end="url(#mission-arrow)"/>
+                      <path class="mission-edge" d="M 268 42 L 278 42" marker-end="url(#mission-arrow)"/>
+                      <path class="mission-edge" d="M 448 42 L 458 42" marker-end="url(#mission-arrow)"/>
+                      <path class="mission-edge" d="M 48 66 C 48 96, 408 96, 408 66" marker-end="url(#mission-arrow)"/>
+                      <path class="mission-edge mission-edge--restart" d="M 485 66 C 485 132, 48 132, 48 66" marker-end="url(#mission-arrow)"/>
+                    </g>
+                    <g class="mission-nodes">
+                      <g class="mission-node" data-state="playing">
+                        <rect x="8" y="18" width="80" height="48" fill="#b3bd95" stroke="#000" stroke-width="2"/>
+                        <text x="48" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="700">PLAYING</text>
+                      </g>
+                      <g class="mission-node" data-state="keycard">
+                        <rect x="98" y="18" width="80" height="48" fill="#c0d4a7" stroke="#000" stroke-width="2"/>
+                        <text x="138" y="44" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="700">KEYCARD</text>
+                        <text x="138" y="56" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="8">PICKUP</text>
+                      </g>
+                      <g class="mission-node" data-state="extract">
+                        <rect x="188" y="18" width="80" height="48" fill="#9ab6c8" stroke="#000" stroke-width="2"/>
+                        <text x="228" y="44" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="9" font-weight="700">SOUTH</text>
+                        <text x="228" y="56" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="8">EXTRACT</text>
+                      </g>
+                      <g class="mission-node" data-state="won">
+                        <rect x="278" y="18" width="80" height="48" fill="#8e8a25" stroke="#000" stroke-width="2"/>
+                        <text x="318" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="700">WON</text>
+                      </g>
+                      <g class="mission-node" data-state="caught">
+                        <rect x="368" y="18" width="80" height="48" fill="#d77a7a" stroke="#000" stroke-width="2"/>
+                        <text x="408" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="700">CAUGHT</text>
+                      </g>
+                      <g class="mission-node" data-state="lost">
+                        <rect x="458" y="18" width="54" height="48" fill="#e6915d" stroke="#000" stroke-width="2"/>
+                        <text x="485" y="48" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="700">LOST</text>
+                      </g>
+                    </g>
+                    <text class="mission-active-label" x="260" y="138" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="12" fill="#000">Playing: find the keycard</text>
+                  </svg>
+                </div>
+                <ul class="diagram-legend">
+                  <li><strong>Keycard:</strong> pick it up to unlock the south extraction zone</li>
+                  <li><strong>Caught:</strong> Enemy touches Suneku, mission failed</li>
+                  <li><strong>Press R</strong> to start again after winning or losing</li>
+                </ul>
+              </div>
+            </article>
+
+            <div class="feature-grid">
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">Enemy AI State Machine</h3>
+                <div class="ribbon-card__body ribbon-card__body--peach">
+                  <p class="field-label">Purpose</p>
+                  <p>Employers can see structured enemy AI beyond simple chase behaviour.</p>
+                  <p class="field-label">Challenge</p>
+                  <p>Balancing wake-on-noise, vision cone detection, and search cooldown without pathfinding.</p>
+                  <p class="field-label">Approach</p>
+                  <p><code>OcelotState</code> FSM: Dormant → Investigate → Chase → Search with hearing radius and vision cone checks.</p>
+                  <p class="field-label">Result</p>
+                  <p>Enemy responds to wall hits and line-of-sight; debug hearing overlay visualises awareness.</p>
+                  <p class="field-label">Reflection</p>
+                  <p>Add grid or nav-mesh pathfinding so Enemy respects walls during chase.</p>
+                  <pre class="code-inset">enum class OcelotState {
+  Dormant, Investigate, Chase, Search
+};</pre>
+                </div>
+              </article>
+
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">Mission Loop</h3>
+                <div class="ribbon-card__body ribbon-card__body--lime">
+                  <p class="field-label">Purpose</p>
+                  <p>Proves end-to-end game design implementation, not only technical demos.</p>
+                  <p class="field-label">Challenge</p>
+                  <p>Clear objective, win/lose feedback, and restart flow for playtesters.</p>
+                  <p class="field-label">Approach</p>
+                  <p>Keycard pickup unlocks south extraction; Enemy catch triggers mission failed; R restarts.</p>
+                  <p class="field-label">Result</p>
+                  <p>HUD shows objective and outcome; <code>MissionState</code> drives Playing / Won / Lost.</p>
+                  <p class="field-label">Reflection</p>
+                  <p>Add a brief tutorial overlay on first launch for markers unfamiliar with stealth controls.</p>
+                </div>
+              </article>
+
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">Collision &amp; OBB</h3>
+                <div class="ribbon-card__body ribbon-card__body--sage">
+                  <p class="field-label">Purpose</p>
+                  <p>Shows physics-adjacent programming and debugging discipline.</p>
+                  <p class="field-label">Challenge</p>
+                  <p>Red wire outline did not match player stop distance; AABB was too fat vs rotated sprite.</p>
+                  <p class="field-label">Approach</p>
+                  <p>True OBB support along wall normals; per-edge contact; same basis as renderer draw path.</p>
+                  <p class="field-label">Result</p>
+                  <p>Sliding along walls feels correct; H toggles hitbox debug overlay.</p>
+                  <p class="field-label">Reflection</p>
+                  <p>Prototype collision in isolation before merging with gameplay code.</p>
+                </div>
+              </article>
+
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">Vision &amp; Shaders</h3>
+                <div class="ribbon-card__body ribbon-card__body--periwinkle">
+                  <p class="field-label">Purpose</p>
+                  <p>Demonstrates graphical effects and shader pipeline usage.</p>
+                  <p class="field-label">Challenge</p>
+                  <p>Early vision wedge was partially blind; tied to player position not only facing.</p>
+                  <p class="field-label">Approach</p>
+                  <p>GLSL <code>vision_mask</code> fragment/vertex shaders dim world outside mouse-aim cone.</p>
+                  <p class="field-label">Result</p>
+                  <p>Stealth readability improved; debug mode disables overlay for level editing.</p>
+                  <p class="field-label">Reflection</p>
+                  <p>Unit-test shader uniforms separately from gameplay facing logic.</p>
+                </div>
+              </article>
+
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">Stealth Audio</h3>
+                <div class="ribbon-card__body ribbon-card__body--sky">
+                  <p class="field-label">Purpose</p>
+                  <p>Audio as a gameplay mechanic: noise radius alerts enemies.</p>
+                  <p class="field-label">Challenge</p>
+                  <p>Wall thud spammed every frame; SDL_LoadWAV does not load MP3.</p>
+                  <p class="field-label">Approach</p>
+                  <p>Edge-triggered wall hits; PCM thud.wav; randomised footstep clips; separate walk and sprint noise radius.</p>
+                  <p class="field-label">Result</p>
+                  <p>Walk/sprint produce different noise pulses visible when H is enabled.</p>
+                  <p class="field-label">Reflection</p>
+                  <p>Confirm SDL-only SFX policy with lecturer; consider FMOD if required for Gold.</p>
+                </div>
+              </article>
+
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">Libraries &amp; build</h3>
+                <div class="ribbon-card__body ribbon-card__body--steel">
+                  <p class="field-label">Purpose</p>
+                  <p>Shows how Boxu is wired to standard game libraries on Mac and Windows (graphics, images, audio).</p>
+                  <p class="field-label">Challenge</p>
+                  <p>Course SDK layout vs Homebrew on macOS; shader path resolution at runtime.</p>
+                  <p class="field-label">Approach</p>
+                  <p>CMake targets for SDL2, SDL2_image, GLEW; shaders copied post-build; base-path loader.</p>
+                  <p class="field-label">Result</p>
+                  <p>Cross-platform build documented; assets load from executable directory.</p>
+                  <p class="field-label">Reflection</p>
+                  <p>Dedicate a Windows machine earlier for Release hand-in verification.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- TECH DEMOS -->
+          <section class="section-block" id="demos" aria-labelledby="demos-heading">
+            <h2 class="section-eyebrow section-eyebrow--olive" id="demos-heading">Tech Demos</h2>
+            <p class="lede">Closer looks at individual programming problems from Boxu. Each card explains <strong>what the system does</strong>, <strong>what was hard</strong>, and <strong>how it was solved</strong>, using the same structure across this portfolio for COMP710. The first demo is interactive: move your mouse over it to try it yourself.</p>
+            <div class="demo-strip">
+              <article class="ribbon-card" data-animate="card">
+                <span class="sticker sticker--new sticker--interactive" aria-hidden="true">Interactive Demo!, Try yourself!</span>
+                <h3 class="ribbon-card__title">Vision Wedge Shader</h3>
+                <div class="ribbon-card__body ribbon-card__body--periwinkle">
+                  <div class="demo-card-layout__visual">
+                    <div class="engine-diagram engine-diagram--demo vision-demo-interactive" id="diagram-vision-demo" role="img" aria-label="Interactive Boxu vision mask demo: move mouse to aim Suneku, wedge shows lit floor through vision_mask shader darkness">
+                      <svg class="engine-diagram__svg" viewBox="0 0 640 280" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <defs>
+                          <pattern id="vision-floor-tiles" width="28" height="28" patternUnits="userSpaceOnUse">
+                            <rect width="28" height="28" fill="#575661"/>
+                            <rect x="1" y="1" width="26" height="26" fill="#5c5c66"/>
+                            <path d="M0 28 H28" stroke="#4a4a52" stroke-width="0.75"/>
+                            <path d="M28 0 V28" stroke="#4a4a52" stroke-width="0.75"/>
+                          </pattern>
+                          <mask id="vision-demo-dim-mask" maskUnits="userSpaceOnUse">
+                            <rect x="0" y="0" width="640" height="280" fill="white"/>
+                            <g class="vision-beam-mask-wrap" transform="translate(338 118)">
+                              <g class="vision-mask-rotate">
+                                <path class="vision-mask-beam" fill="black" d="M 0 0 L 0 0 Z"/>
+                              </g>
+                            </g>
+                          </mask>
+                          <mask id="vision-demo-peek-mask" maskUnits="userSpaceOnUse">
+                            <rect x="0" y="0" width="640" height="280" fill="black"/>
+                            <g class="vision-peek-mask-wrap" transform="translate(338 118)">
+                              <g class="vision-peek-mask-rotate">
+                                <path class="vision-peek-mask-beam" fill="white" d="M 0 0 L 0 0 Z"/>
+                              </g>
+                            </g>
+                          </mask>
+                        </defs>
+                        <rect class="vision-floor" x="0" y="0" width="640" height="280" fill="url(#vision-floor-tiles)" stroke="#000" stroke-width="2"/>
+                        <rect class="vision-base-dim" x="0" y="0" width="640" height="280"/>
+                        <line class="vision-wall vision-wall--top" x1="282" y1="36" x2="540" y2="36" stroke="#e91d2a" stroke-width="3"/>
+                        <line class="vision-wall vision-wall--left" x1="282" y1="36" x2="296" y2="121" stroke="#e91d2a" stroke-width="3"/>
+                        <rect class="vision-dim-overlay" x="0" y="0" width="640" height="280" mask="url(#vision-demo-dim-mask)"/>
+                        <g class="vision-wall-hints" aria-hidden="true">
+                          <line x1="282" y1="36" x2="540" y2="36"/>
+                          <line x1="282" y1="36" x2="296" y2="121"/>
+                        </g>
+                        <text class="vision-peek-hint" mask="url(#vision-demo-peek-mask)" x="221" y="135" text-anchor="start" fill="#fcc20f" fill-opacity="0">(peeking past the corner?)</text>
+                        <circle class="vision-mouse-dot" cx="320" cy="36" r="5" fill="none" stroke="#fcc20f" stroke-width="1.5" opacity="0"/>
+                        <g class="vision-player" transform="translate(338 118)">
+                          <g class="vision-facing">
+                            <rect class="vision-suneku-body" x="-10" y="-10" width="20" height="20" fill="#3d2415" stroke="#000" stroke-width="1"/>
+                            <polygon class="vision-suneku-nose" points="0,-10 6,2 -6,2" fill="#c9a227" stroke="#000" stroke-width="0.75"/>
+                          </g>
+                          <text class="vision-suneku-label" x="0" y="22" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="8" font-weight="700" fill="#b3bd95">SUNEKU</text>
+                        </g>
+                        <text class="vision-status" x="320" y="268" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="11" fill="#b3bd95">Move your mouse here to aim. Most of the room stays dark until you look at it</text>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="demo-card-layout__copy">
+                    <p class="diagram-caption"><strong>Purpose:</strong> In Boxu, the level is mostly hidden in darkness. A cone of light follows your mouse. That is what Suneku can “see.” This demo recreates that effect in the browser.</p>
+                    <ul class="diagram-legend">
+                      <li><strong>Lit floor</strong> is the area you are currently looking at</li>
+                      <li><strong>Dark fog</strong> covers everywhere else on the map</li>
+                      <li><strong>Red walls</strong> block sight. The wedge stops at the wall, not through it.</li>
+                      <li><strong>Yellow hint:</strong> try peeking around the corner down-left. Text only appears when you look at it.</li>
+                    </ul>
+                    <div class="demo-summary">
+                      <p><strong>Challenge:</strong> Early versions cut off the whole cone when any ray hit a wall.</p>
+                      <p><strong>Approach:</strong> A custom shader checks each direction separately so only the blocked slice stays dark.</p>
+                      <p><strong>Result:</strong> Stealth reads clearly. You feel blind until you aim, and corners matter.</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">OBB Collision Debug</h3>
+                <div class="ribbon-card__body ribbon-card__body--sage">
+                  <div class="demo-card-layout__visual">
+                    <div class="engine-diagram engine-diagram--demo" id="diagram-obb-demo" role="img" aria-label="Animated OBB debug: red wireframe hull slides along wall with player">
+                      <svg class="engine-diagram__svg" viewBox="0 0 640 280" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="0" y="0" width="640" height="280" fill="#111" stroke="#000" stroke-width="2"/>
+                        <line class="obb-wall" x1="520" y1="20" x2="520" y2="260"/>
+                        <g class="obb-actor">
+                          <rect class="obb-player" x="-12" y="-12" width="24" height="24"/>
+                          <polygon class="obb-hull" points="-14,-14 14,-14 14,14 -14,14"/>
+                        </g>
+                        <text class="obb-status" x="320" y="262" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="12" fill="#e91d2a">Red box = hitbox aligned to the character when sliding on walls</text>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="demo-card-layout__copy">
+                    <p class="diagram-caption"><strong>Purpose:</strong> Show how Boxu knows when Suneku touches a wall. The red outline is the collision box. It must match what you see on screen.</p>
+                    <ul class="diagram-legend">
+                      <li><strong>Red outline</strong> is the rotated hitbox (OBB), not a simple square</li>
+                      <li><strong>Wall slide</strong> keeps the character flush with the wall instead of sticking or clipping</li>
+                    </ul>
+                    <div class="demo-summary">
+                      <p><strong>Challenge:</strong> A plain square hitbox was too wide and the debug outline did not match stop distance.</p>
+                      <p><strong>Approach:</strong> Oriented bounding boxes aligned to the sprite and each wall edge.</p>
+                      <p><strong>Result:</strong> Movement feels fair; press H in-game to toggle this debug view.</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="ribbon-card" data-animate="card">
+                <h3 class="ribbon-card__title">Noise Pulse Rings</h3>
+                <div class="ribbon-card__body ribbon-card__body--sky">
+                  <div class="demo-card-layout__visual">
+                    <div class="engine-diagram engine-diagram--demo" id="diagram-noise-demo" role="img" aria-label="Horizontal comparison of walk, sprint, and hearing noise radius">
+                      <svg class="engine-diagram__svg" viewBox="0 0 640 280" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="0" y="0" width="640" height="280" fill="#111" stroke="#000" stroke-width="2"/>
+                        <line x1="213" y1="36" x2="213" y2="244" stroke="#333" stroke-width="1"/>
+                        <line x1="427" y1="36" x2="427" y2="244" stroke="#333" stroke-width="1"/>
+                        <g class="noise-panel" data-panel="walk" transform="translate(107 148)">
+                          <circle class="noise-ring noise-ring--walk noise-ring-walk" cx="0" cy="0" r="6" fill="none" stroke-width="2.5" opacity="0"/>
+                          <rect x="-9" y="-9" width="18" height="18" fill="#8f6840" stroke="#000" stroke-width="1"/>
+                          <text class="noise-panel__label" x="0" y="-84" text-anchor="middle" font-size="11">WALK</text>
+                          <text class="noise-panel__value" x="0" y="-70" text-anchor="middle" font-size="10">140 px</text>
+                        </g>
+                        <g class="noise-panel" data-panel="sprint" transform="translate(320 148)">
+                          <circle class="noise-ring noise-ring--sprint noise-ring-sprint" cx="0" cy="0" r="36" fill="none" stroke-width="2.5" opacity="0"/>
+                          <rect x="-9" y="-9" width="18" height="18" fill="#8f6840" stroke="#000" stroke-width="1"/>
+                          <text class="noise-panel__label" x="0" y="-84" text-anchor="middle" font-size="11" fill="#e91d2a">SPRINT</text>
+                          <text class="noise-panel__value" x="0" y="-70" text-anchor="middle" font-size="10">320 px</text>
+                        </g>
+                        <g class="noise-panel" data-panel="hear" transform="translate(533 148)">
+                          <circle class="noise-ring noise-ring--hear-walk noise-ring-hear-walk" cx="0" cy="0" r="36" fill="none" stroke-width="2.5" opacity="0.55"/>
+                          <circle class="noise-ring noise-ring--hear noise-ring-hear" cx="0" cy="0" r="80" fill="none" stroke-width="2.5" opacity="0.45"/>
+                          <circle cx="0" cy="0" r="9" fill="#8c9ae0" stroke="#000" stroke-width="1"/>
+                          <text class="noise-panel__label" x="0" y="-84" text-anchor="middle" font-size="11" fill="#fcc20f">ENEMY</text>
+                          <text class="noise-panel__value noise-panel__value--walk" x="0" y="-64" text-anchor="middle" font-size="10" fill="#9ab6c8" opacity="0">140 px walk</text>
+                          <text class="noise-panel__value noise-panel__value--sprint" x="0" y="-64" text-anchor="middle" font-size="10" fill="#e91d2a" opacity="0">320 px sprint</text>
+                        </g>
+                        <text class="noise-horizontal-label" x="320" y="252" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="12" fill="#b3bd95">How loud is Suneku?</text>
+                        <text class="noise-horizontal-label" x="320" y="266" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="12" fill="#b3bd95">How far can the Enemy hear?</text>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="demo-card-layout__copy">
+                    <p class="diagram-caption"><strong>Purpose:</strong> Sound is a gameplay mechanic. Enemy hearing matches Suneku’s noise: a 140 px walk radius and a 320 px sprint radius. Noise inside either ring can trigger investigate.</p>
+                    <ul class="diagram-legend">
+                      <li><strong>Walk (blue pulse)</strong> is quiet, with a smaller ripple (~140 px in-game)</li>
+                      <li><strong>Sprint (red pulse)</strong> is loud, with a larger ripple (~320 px)</li>
+                      <li><strong>Yellow ring</strong> flashes with sprint noise (320 px)</li>
+                      <li><strong>Inner blue ring</strong> flashes with walk noise (140 px)</li>
+                    </ul>
+                    <div class="demo-summary">
+                      <p><strong>Challenge:</strong> Wall bumps fired every frame and were too noisy.</p>
+                      <p><strong>Approach:</strong> Separate walk and sprint noise radius, and only play a thud when contact first starts.</p>
+                      <p><strong>Result:</strong> Players learn to walk quietly near the Enemy and sprint only when safe. Press H to see rings in-game.</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- PROJECTS -->
+          <section class="section-block" id="projects" aria-labelledby="projects-heading">
+            <h2 class="section-eyebrow section-eyebrow--periwinkle" id="projects-heading">Projects &amp; Documentation</h2>
+
+            <article class="ribbon-card" data-animate="card">
+              <h3 class="ribbon-card__title">Development Timeline</h3>
+              <div class="ribbon-card__body ribbon-card__body--sage">
+                <div class="timeline-strip" aria-label="Boxu development milestones from GitHub commit history">
+                  <div class="timeline-cell">
+                    <div class="timeline-cell__date">13 Apr 2026</div>
+                    <div class="timeline-cell__title">Initial import</div>
+                    <div class="timeline-cell__caption">GP framework + tutorial level; Ocelot naming checkpoint same day</div>
+                  </div>
+                  <div class="timeline-cell">
+                    <div class="timeline-cell__date">14 Apr 2026</div>
+                    <div class="timeline-cell__title">v0.1 Alpha</div>
+                    <div class="timeline-cell__caption">Mouse-aim vision cone: most of the map stays dark until you look; wall bumps wake Ocelot</div>
+                  </div>
+                  <div class="timeline-cell">
+                    <div class="timeline-cell__date">15 Apr 2026</div>
+                    <div class="timeline-cell__title">Mission loop</div>
+                    <div class="timeline-cell__caption">Keycard, south extraction, catch = fail, HUD + R restart</div>
+                  </div>
+                  <div class="timeline-cell">
+                    <div class="timeline-cell__date">27 Apr 2026</div>
+                    <div class="timeline-cell__title">v0.2, Enemy AI</div>
+                    <div class="timeline-cell__caption">Vision/hearing FSM, chase/search, hearing debug overlay (H)</div>
+                  </div>
+                  <div class="timeline-cell">
+                    <div class="timeline-cell__date">29 Apr 2026</div>
+                    <div class="timeline-cell__title">v0.2 → v0.4</div>
+                    <div class="timeline-cell__caption">Splash intro, footstep SFX, asset-path fixes; HUD tagged v0.4</div>
+                  </div>
+                  <div class="timeline-cell">
+                    <div class="timeline-cell__date">11 May 2026</div>
+                    <div class="timeline-cell__title">v0.5 Alpha</div>
+                    <div class="timeline-cell__caption">Gold polish on floor/enemy textures, presentation feedback</div>
+                  </div>
+                </div>
+                <p style="margin-top:12px;font-size:12px;">Dates and titles match the <a class="text-link" href="assets/docs/GHL–23196422.txt" download>GitHub commit log (GHL)</a> in this portfolio (10 commits, Apr 13–May 11 2026).</p>
+                <p style="margin-top:8px;font-size:13px;"><strong>Network communication:</strong> not in scope for Boxu v0.5; documented here for completeness.</p>
+                <p style="font-size:13px;"><strong>Team game:</strong> see <a class="text-link" href="#team-project">Team Game Project</a> for <strong>cardBoardEngine</strong>: modular layout, BFS pathfinding, minimap HUD, flashlight systems, and Windows + macOS builds (<code>betaVersionV2-windows</code> branch).</p>
+              </div>
+            </article>
+
+            <article class="ribbon-card" data-animate="card">
+              <h3 class="ribbon-card__title">Downloads &amp; Formal Documents</h3>
+              <div class="ribbon-card__body ribbon-card__body--steel">
+                <p style="font-size:13px;margin:0 0 10px;">GHL log, pitch, game design, and technical design documents for Boxu. Expand to view or download. Copies also live in the <a class="text-link" href="https://github.com/AMGKompressor/Boxu" target="_blank" rel="noopener noreferrer">GitHub repo</a>.</p>
+                <details class="site-disclosure">
+                  <summary class="site-disclosure__summary">Formal documents &amp; downloads</summary>
+                  <div class="site-disclosure__body">
+                    <div class="download-row">
+                      <div class="download-tile">
+                        <a class="sticker" href="assets/docs/GHL–23196422.txt" download>GHL Log</a>
+                        <div class="download-tile__label">GitHub commits</div>
+                      </div>
+                      <div class="download-tile">
+                        <a class="sticker" href="assets/docs/Pitch-23196422.pdf" target="_blank" rel="noopener noreferrer">Pitch PDF</a>
+                        <div class="download-tile__label">Pitch deck</div>
+                      </div>
+                      <div class="download-tile">
+                        <a class="sticker" href="assets/docs/GDD-23196422.pdf" target="_blank" rel="noopener noreferrer">GDD PDF</a>
+                        <div class="download-tile__label">Game Design Document</div>
+                      </div>
+                      <div class="download-tile">
+                        <a class="sticker" href="assets/docs/TDD-23196422.pdf" target="_blank" rel="noopener noreferrer">TDD PDF</a>
+                        <div class="download-tile__label">Technical Design Document</div>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="ribbon-card" id="reflection" data-animate="card">
+              <h3 class="ribbon-card__title">Development journal (debug diary)</h3>
+              <div class="ribbon-card__body ribbon-card__body--peach">
+                <blockquote class="journal-quote">
+                  Wall thud fired every frame while holding into a wall. I track per-edge contact and only play audio on the rising edge of collision.
+                  <cite>DEV_ISSUES_LOG: Wall thud spam</cite>
+                </blockquote>
+                <blockquote class="journal-quote">
+                  Red outline vs collision took several passes: wrong unified radius, AABB too fat, renderer basis mismatch, and a bad convex hull diagonal.
+                  <cite>DEV_ISSUES_LOG: OBB collision</cite>
+                </blockquote>
+                <blockquote class="journal-quote">
+                  Line shaders missing at runtime. Fixed with SDL_GetBasePath() search root and mirrored shaders beside the executable.
+                  <cite>DEV_ISSUES_LOG: Shader paths</cite>
+                </blockquote>
+                <blockquote class="journal-quote">
+                  Chose SDL2 WAV playback instead of FMOD for portability on Mac while keeping SFX functional for marking.
+                  <cite>DEV_ISSUES_LOG: Audio middleware</cite>
+                </blockquote>
+              </div>
+            </article>
+          </section>
+
+          <!-- TEAM GAME PROJECT -->
+          <section class="section-block" id="team-project" aria-labelledby="team-heading">
+            <h2 class="section-eyebrow section-eyebrow--steel" id="team-heading">Team Game Project</h2>
+            <p class="lede">COMP710 group deliverable. The full game runs on <strong>cardBoardEngine</strong>, the shared C++ codebase I built so the team could develop and hand in on Mac and Windows.</p>
+            <article class="ribbon-card" data-animate="card">
+              <h3 class="ribbon-card__title">cardBoardEngine team codebase</h3>
+              <div class="ribbon-card__body ribbon-card__body--steel">
+                <p><strong>Standalone C++ repo</strong>, not part of Boxu. Clone <a class="text-link" href="https://github.com/AMGKompressor/cardBoardEngine" target="_blank" rel="noopener noreferrer">AMGKompressor/cardBoardEngine</a> only, then add the <code>lib/</code> folder with SDL2, SDL2_image, and GLEW as described in the repo README.</p>
+                <a class="sticker" href="https://github.com/AMGKompressor/cardBoardEngine" target="_blank" rel="noopener noreferrer">View cardBoardEngine on GitHub</a>
+
+                <p class="field-label">Purpose</p>
+                <p>Boxu proved the core stealth ideas but could not grow into everything I wanted within the individual project timeline. Refactoring those working systems into a standalone engine let the team game inherit the vision mask, collision, and footstep logic, then pathfinding, minimap, and full multi-enemy gameplay on top.</p>
+                <p>Evolve Boxu’s monolithic layout into a lighter, team-friendly engine: clear modules, tunable <code>PlayerConfig</code>, and builds teammates can run on <strong>macOS</strong> and <strong>Windows</strong> for submission.</p>
+                <p class="field-label">Challenge</p>
+                <p>Boxu <code>game.cpp</code> had grown hard to navigate; parallel edits on player, map, and rendering were risky. The group game also needed a documented Windows path (Visual Studio 2022, Win32, runtime DLLs beside the executable).</p>
+                <p class="field-label">Approach</p>
+                <p>Split shared systems into <code>framework/</code>, <code>src/Player/</code>, <code>src/Map/</code>, and a thin <code>CardBoardApp</code> loop. CMake produces two targets from the same tree:</p>
+                <ul>
+                  <li><strong><code>cardboard</code></strong>, slimmer modular engine demo (<code>CARDBOARD_BUILD_FULL_GAME=OFF</code>)</li>
+                  <li><strong><code>tgp</code></strong>, full team game: <code>SceneCardBoard</code>, <code>EnemyManager</code>, <code>NavGrid</code>, battery pickups, ImGui UI, optional Xbox controller input</li>
+                </ul>
+                <p>Shaders and textures copy next to the executable on post-build; Mac can use Homebrew or <code>lib/</code>; Windows links the x86 libraries from <code>lib/</code>.</p>
+                <p class="field-label">Result</p>
+                <p>Movement, sprint, OBB collision, footstep noise pulses, and <code>vision_mask</code> lighting live in dedicated modules. The <code>tgp</code> build adds enemy types (Spirit, Hidden, Revenant), battery pickups, health damage, spawn zones, and map tuning via <code>BasicMapLayout</code>.</p>
+                <p class="field-label"><code>betaVersionV2-windows</code>, latest team build</p>
+                <p>Checked out from GitHub (Jun 2026). On top of the full <code>tgp</code> game loop, this branch adds:</p>
+                <ul>
+                  <li><strong><code>NavGrid</code> + BFS pathfinding</strong> divides the level into 48 px walkable cells from the same wall geometry as player collision. A breadth-first search builds waypoint paths so enemies chase and relocate around obstacles instead of cutting through walls. Hidden enemies pick a new walkable cell after flashlight stun. Press <strong>H</strong> to draw green walkable nodes in view (debug overlay).</li>
+                  <li><strong>Minimap HUD</strong>, a top-right corner panel shows the whole map scaled down: wall lines from <code>Map</code> wire segments, your blip, and enemy dots only inside a tunable reveal radius (radar-style, default ~520 px). Tuning lives in <code>MinimapConfig.h</code>; ImGui (<code>`</code> key) adjusts reveal radius live for teammates.</li>
+                  <li><strong>Full-game polish</strong>: vision mask respects walls, stun flee/respawn, item batteries, ImGui debug UI, and documented Windows/Mac CMake for hand-in.</li>
+                </ul>
+                <p class="field-label">From Boxu vision cone → team flashlight</p>
+                <p>Reused Boxu’s GLSL pair, then extended it for the group game (<code>Player_1</code> / <code>PlayerConfig</code>):</p>
+                <ul>
+                  <li><strong>Ambient radius</strong>, 72 px lit bubble around the player</li>
+                  <li><strong>LMB</strong> toggles flashlight. Charge drains while on and recharges when off.</li>
+                  <li><strong>Batteries</strong> are world pickups that restore charge to 100%</li>
+                  <li><strong>Space (held)</strong> widens the stun cone. Enemies flee or respawn via <code>NavGrid</code> when caught in the beam.</li>
+                </ul>
+                <p class="field-label">Controls (<code>tgp</code> / <code>betaVersionV2-windows</code>)</p>
+                <p style="font-size:13px;margin:0;">WASD move · Shift sprint · LMB flashlight · Space stun beam · H debug (hitbox, footstep rings, BFS walkable nodes) · <code>`</code> ImGui (minimap radius, batteries) · Esc quit</p>
+
+                <details class="site-disclosure">
+                  <summary class="site-disclosure__summary">Build &amp; run (macOS &amp; Windows)</summary>
+                  <div class="site-disclosure__body">
+                    <p><strong>macOS</strong> (from repo root; Homebrew once: <code>cmake sdl2 sdl2_image glew</code>)</p>
+                    <pre class="code-inset">cmake -B build
+cmake --build build
+./build/tgp</pre>
+                    <p><strong>Windows:</strong> Visual Studio 2022 (Desktop C++), CMake, <code>lib/</code> in place, Win32:</p>
+                    <pre class="code-inset">cmake -G "Visual Studio 17 2022" -A Win32 -B build
+cmake --build build --config Release
+cd build\Release
+tgp.exe</pre>
+                    <p style="font-size:12px;margin:6px 0 0;">Modular-only demo: <code>cardboard.exe</code> (set <code>CARDBOARD_BUILD_FULL_GAME=OFF</code> at configure time).</p>
+                    <p class="play-promo__note">Place <code>SDL2.dll</code>, <code>SDL2_image.dll</code>, and <code>glew32.dll</code> next to the executable (from <code>lib/</code>). For minimap + BFS pathfinding, clone and check out <code>betaVersionV2-windows</code> before building.</p>
+                  </div>
+                </details>
+
+                <table class="data-table">
+                  <thead><tr><th>Layer</th><th>Location</th><th>Role</th></tr></thead>
+                  <tbody>
+                    <tr><td>Framework</td><td><code>framework/</code></td><td>Renderer, sprites, shaders</td></tr>
+                    <tr><td>Player</td><td><code>src/Player/</code></td><td>Movement, flashlight, hitbox, footstep pulses</td></tr>
+                    <tr><td>Map</td><td><code>src/Map/</code></td><td>Walls, collision, floor draw</td></tr>
+                    <tr><td>App</td><td><code>src/CardBoardApp.*</code></td><td>Modular demo loop</td></tr>
+                    <tr><td>Full game</td><td><code>SceneCardBoard</code>, <code>Enemy*</code>, <code>EnemyManager</code></td><td>Team gameplay scene (<code>tgp</code> target)</td></tr>
+                    <tr><td>Pathfinding</td><td><code>NavGrid.cpp</code></td><td>Wall-aware grid; BFS paths for chase + stun respawn</td></tr>
+                    <tr><td>Minimap</td><td><code>Minimap.cpp</code>, <code>MinimapConfig.h</code></td><td>Corner HUD with full map, walls, and nearby enemy blips</td></tr>
+                  </tbody>
+                </table>
+                <p class="field-label">Reflection</p>
+                <p>Splitting <code>cardboard</code> vs <code>tgp</code> let me keep a clean teaching demo while the team iterated on enemies and level spawns in the full target. Boxu had shown what was possible; cardBoardEngine was where those ideas could breathe under a shared deadline. BFS on a coarse grid was enough for fair chase without a full nav-mesh; the minimap gave playtesters layout awareness without spoiling distant enemies.</p>
+              </div>
+            </article>
+
+            <article class="ribbon-card" data-animate="card">
+              <h3 class="ribbon-card__title">My programming contribution</h3>
+              <div class="ribbon-card__body ribbon-card__body--periwinkle">
+                <p class="field-label">Purpose</p>
+                <p>Document what I owned on the group game, not a second Boxu port, but the engine and systems the team shipped from after the individual build ran into time and technical limits.</p>
+                <p class="field-label">What I contributed</p>
+                <ul>
+                  <li><strong>Standalone repo:</strong> <code>cardBoardEngine</code> decoupled from Boxu so the team clones one project with documented Mac and Windows steps.</li>
+                  <li><strong><code>tgp</code> / <code>SceneCardBoard</code></strong>, integrated player, map, UI, items, and enemy systems in one scene loop.</li>
+                  <li><strong>Enemy stack:</strong> <code>EnemyManager</code> + three enemy types (Spirit, Hidden, Revenant) with flashlight stun flee and respawn.</li>
+                  <li><strong>BFS pathfinding:</strong> <code>NavGrid</code> marks walkable cells from map walls; enemies follow BFS waypoint paths when chasing or relocating after stun (debug walkable nodes with <strong>H</strong>).</li>
+                  <li><strong>Minimap HUD</strong>, corner radar of the full level with wall overlay; enemy blips only within a tunable reveal radius so distant threats stay hidden.</li>
+                  <li><strong>Lighting gameplay:</strong> flashlight charge, batteries, and Space stun cone carried from Boxu’s <code>vision_mask</code> work into the group build.</li>
+                </ul>
+                <p class="field-label">Result</p>
+                <p>The group game ships from <code>cardBoardEngine</code> on branch <code>betaVersionV2-windows</code> (<code>tgp.exe</code> Windows Release for hand-in; Mac builds for local iteration). It delivers more of the original design intent than Boxu could alone: fair enemy routing, HUD tools for playtesting, and room for teammates to iterate in parallel. Boxu remains the polished individual slice on this portfolio; the engine is where the project scaled.</p>
+                <p class="field-label">Reflection</p>
+                <p>Extracting Boxu into modules was the right call once individual scope and technical debt collided with the group deadline. The team could use what already worked without re-solving collision or lighting, and I could focus new time on systems Boxu never had time for (BFS nodes, minimap, Windows CMake. Module boundaries helped once several people edited player and map logic at once.</p>
+              </div>
+            </article>
+          </section>
+
+          <!-- CONTACT -->
+          <section class="section-block" id="contact" aria-labelledby="contact-heading">
+            <h2 class="section-eyebrow section-eyebrow--peach" id="contact-heading">Contact &amp; References</h2>
+            <article class="ribbon-card" data-animate="card">
+              <h3 class="ribbon-card__title">Contact</h3>
+              <div class="ribbon-card__body ribbon-card__body--sky">
+                <p><strong>Bardia Khalifeh</strong>, Game Programmer · Auckland University of Technology (2026)</p>
+                <p>Email: <a class="text-link" href="mailto:scrub.zenith_1j@icloud.com">scrub.zenith_1j@icloud.com</a></p>
+                <p>GitHub: <a class="text-link" href="https://github.com/AMGKompressor/Boxu" target="_blank" rel="noopener noreferrer">Boxu</a> · <a class="text-link" href="https://github.com/AMGKompressor/cardBoardEngine" target="_blank" rel="noopener noreferrer">cardBoardEngine</a></p>
+              </div>
+            </article>
+            <aside class="references-footnote" aria-labelledby="references-heading">
+              <h3 class="references-footnote__title" id="references-heading">References</h3>
+              <ol class="references-list">
+                <li>Linden, R., &amp; et al. (n.d.). <em>Simple DirectMedia Layer</em>. https://www.libsdl.org/</li>
+                <li>The OpenGL Extension Wrangler Library. (n.d.). <em>GLEW</em>. http://glew.sourceforge.net/</li>
+                <li>Auckland University of Technology. (2026). <em>COMP710 Game Programming, GP Framework and Studio 5 resources</em>. Course materials.</li>
+              </ol>
+            </aside>
+          </section>
+
+        </main>
+      </div>
+
+      <footer class="footer-band">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#home">Home</a>
+          <a href="#boxu">Boxu</a>
+          <a href="#demos">Tech Demos</a>
+          <a href="#projects">Projects</a>
+          <a href="#team-project">Team Game</a>
+          <a href="#contact">Contact</a>
+          <a href="comp612.html">COMP612 (2025)</a>
+        </nav>
+        <p>Copyright © 2026 Bardia Khalifeh · Game Programmer Portfolio</p>
+        <p>This site is best viewed with modern browsers (Chrome, Firefox, Safari). JavaScript enhances animations; all content is readable without it.</p>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" aria-hidden="true" role="dialog" aria-label="Image preview">
+    <div class="modal__inner">
+      <button type="button" class="modal__close" aria-label="Close preview">×</button>
+      <img class="modal__img" src="" alt="">
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/engine-diagrams.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+:root {
+  --color-primary: #e91d2a;
+  --color-on-primary: #ffffff;
+  --color-yellow-sticker: #fcc20f;
+  --color-purple-stripe: #6a26a4;
+  --color-link: #0000ee;
+  --color-ink: #000000;
+  --color-canvas: #ffffff;
+  --color-frame: #000000;
+  --color-tint-olive: #8e8a25;
+  --color-tint-sage: #b3bd95;
+  --color-tint-salmon: #d77a7a;
+  --color-tint-peach: #e6915d;
+  --color-tint-lime: #c0d4a7;
+  --color-tint-sky: #9ab6c8;
+  --color-tint-steel: #a5b8c0;
+  --color-tint-periwinkle: #8c9ae0;
+  --font-display: "Arial Black", Helvetica, sans-serif;
+  --font-ui: Helvetica, Arial, sans-serif;
+  --font-body: "Times New Roman", Times, serif;
+  --font-mono: "Courier New", Courier, monospace;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-section: 40px;
+  --layout-max: 760px;
+  --frame-width: 8px;
+  --nav-indicator: 3px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --frame-width: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --frame-width: 2px;
+  }
+}

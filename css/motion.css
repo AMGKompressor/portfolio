@@ -1,0 +1,38 @@
+.section-eyebrow {
+  will-change: transform, opacity;
+}
+
+[data-animate="card"] {
+  will-change: opacity;
+}
+
+/* Hide scroll-reveal targets until GSAP sets initial state (prevents flash before scripts run). */
+html.js-scroll-reveal:not(.reveal-initialized) [data-animate="card"]:not(.hero-card),
+html.js-scroll-reveal:not(.reveal-initialized) .section-block:not(#home) > .lede,
+html.js-scroll-reveal:not(.reveal-initialized) .section-eyebrow,
+html.js-scroll-reveal:not(.reveal-initialized) .footer-nav a,
+html.js-scroll-reveal:not(.reveal-initialized) .footer-band > p {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-photo-notch img {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-scroll-reveal [data-animate="card"]:not(.hero-card),
+  html.js-scroll-reveal .section-block:not(#home) > .lede,
+  html.js-scroll-reveal .section-eyebrow,
+  html.js-scroll-reveal .footer-nav a,
+  html.js-scroll-reveal .footer-band > p {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  [data-animate],
+  .section-eyebrow,
+  .hero-photo-notch img {
+    will-change: auto;
+  }
+}
