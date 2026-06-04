@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/motion.css">
+  <script>document.documentElement.classList.add("js-scroll-reveal");</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -51,7 +52,7 @@
 
           <section class="section-block" id="snow-scene" aria-labelledby="snow-heading">
             <h2 class="section-eyebrow section-eyebrow--sky" id="snow-heading">Snow Scene</h2>
-            <article class="ribbon-card">
+            <article class="ribbon-card" data-animate="card">
               <h3 class="ribbon-card__title">Procedural 2D winter scene (freeGLUT)</h3>
               <div class="ribbon-card__body ribbon-card__body--sky">
                 <figure class="comp612-shot">
@@ -96,7 +97,7 @@
 
           <section class="section-block" id="helicopter" aria-labelledby="heli-heading">
             <h2 class="section-eyebrow section-eyebrow--periwinkle" id="heli-heading">Helicopter Scene</h2>
-            <article class="ribbon-card">
+            <article class="ribbon-card" data-animate="card">
               <h3 class="ribbon-card__title">3D flight sandbox (OpenGL)</h3>
               <div class="ribbon-card__body ribbon-card__body--periwinkle">
                 <figure class="comp612-shot">
@@ -154,6 +155,9 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
 </body>
 </html>

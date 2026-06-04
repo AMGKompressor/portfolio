@@ -173,6 +173,8 @@
         "#home-heading",
         "#home > .lede",
         "#home .btn",
+        "#overview-heading",
+        "#overview > .lede",
       ],
       { clearProps: "all" }
     );
@@ -187,11 +189,21 @@
 
       loadTl
         .from(".page-frame-inner", { autoAlpha: 0, duration: 0.3 })
-        .from(".top-banner", { y: -10, autoAlpha: 0, duration: 0.35 }, "<")
-        .from("#home-heading", { y: 12, autoAlpha: 0, duration: 0.4 }, ">-0.08")
-        .from("#home > .lede", { y: 10, autoAlpha: 0, stagger: 0.14, duration: 0.35 }, ">-0.12")
-        .from("#home .btn", { y: 8, autoAlpha: 0, stagger: 0.08, duration: 0.3 }, ">-0.08")
-        .from(".hero-card", { y: 12, autoAlpha: 0, duration: 0.4 }, ">-0.04");
+        .from(".top-banner", { y: -10, autoAlpha: 0, duration: 0.35 }, "<");
+
+      if (document.getElementById("home-heading")) {
+        loadTl
+          .from("#home-heading", { y: 12, autoAlpha: 0, duration: 0.4 }, ">-0.08")
+          .from("#home > .lede", { y: 10, autoAlpha: 0, stagger: 0.14, duration: 0.35 }, ">-0.12")
+          .from("#home .btn", { y: 8, autoAlpha: 0, stagger: 0.08, duration: 0.3 }, ">-0.08")
+          .from(".hero-card", { y: 12, autoAlpha: 0, duration: 0.4 }, ">-0.04");
+      }
+
+      if (document.getElementById("overview-heading")) {
+        loadTl
+          .from("#overview-heading", { y: 12, autoAlpha: 0, duration: 0.4 }, ">-0.08")
+          .from("#overview > .lede", { y: 10, autoAlpha: 0, duration: 0.35 }, ">-0.12");
+      }
 
       gsap.to(".hero-photo-notch img", {
         y: -12,
@@ -204,7 +216,7 @@
         },
       });
 
-      initScrollReveal(".section-block:not(#home) > .lede", {
+      initScrollReveal(".section-block:not(#home):not(#overview) > .lede", {
         y: 10,
         stagger: 0.08,
         duration: 0.35,
