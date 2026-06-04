@@ -37,12 +37,12 @@ html.js-scroll-reveal:not(.reveal-initialized) .footer-band > p {
   100% {
     opacity: 0.35;
     transform: scale(1);
-    box-shadow: 0 0 6px 1px rgba(252, 194, 15, 0.35);
+    box-shadow: 0 0 6px 1px rgba(var(--seal-halo-rgb), 0.35);
   }
   50% {
     opacity: 1;
     transform: scale(1.05);
-    box-shadow: 0 0 18px 6px rgba(252, 194, 15, 0.9);
+    box-shadow: 0 0 18px 6px rgba(var(--seal-halo-rgb), 0.9);
   }
 }
 

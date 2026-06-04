@@ -306,8 +306,8 @@
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  border: 2px solid var(--color-yellow-sticker);
-  box-shadow: 0 0 10px 2px rgba(252, 194, 15, 0.45);
+  border: 2px solid rgba(var(--seal-halo-rgb), 0.55);
+  box-shadow: 0 0 10px 2px rgba(var(--seal-halo-rgb), 0.45);
   pointer-events: none;
   z-index: -1;
   animation: cert-seal-halo 2.2s ease-in-out infinite;
@@ -325,7 +325,8 @@
 .cert-seal:focus-visible::after {
   animation: none;
   opacity: 1;
-  box-shadow: 0 0 16px 5px rgba(252, 194, 15, 0.85);
+  border-color: rgba(var(--seal-halo-rgb), 0.9);
+  box-shadow: 0 0 16px 5px rgba(var(--seal-halo-rgb), 0.85);
 }
 
 .cert-seal--current {
@@ -338,11 +339,13 @@
 }
 
 .cert-seal--comp710 {
+  --seal-halo-rgb: 233, 29, 42;
   background: var(--color-primary);
   color: var(--color-canvas);
 }
 
 .cert-seal--comp612 {
+  --seal-halo-rgb: 106, 38, 164;
   background: var(--color-purple-stripe);
   color: var(--color-canvas);
 }
