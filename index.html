@@ -53,7 +53,7 @@
               <li><a href="#boxu">Boxu</a></li>
               <li><a href="#demos">Tech Demos</a></li>
               <li><a href="#projects">Projects</a></li>
-              <li><a href="#team-project">Team Game</a></li>
+              <li><a href="#team-project">Group Game</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
           </nav>
@@ -617,7 +617,7 @@ cmake --build ../temp/build-boxu --config Release</pre>
                 </div>
                 <p style="margin-top:12px;font-size:12px;">Dates and titles match the <a class="text-link" href="assets/docs/GHL–23196422.txt" download>GitHub commit log (GHL)</a> in this portfolio (10 commits, Apr 13–May 11 2026).</p>
                 <p style="margin-top:8px;font-size:13px;"><strong>Network communication:</strong> not in scope for Boxu v0.5; documented here for completeness.</p>
-                <p style="font-size:13px;"><strong>Team game:</strong> see <a class="text-link" href="#team-project">Team Game Project</a> for <strong>cardBoardEngine</strong>: modular layout, BFS pathfinding, minimap HUD, flashlight systems, and Windows + macOS builds (<code>betaVersionV2-windows</code> branch).</p>
+                <p style="font-size:13px;"><strong>Group game:</strong> see <a class="text-link" href="#team-project">Group Game Project</a> for <strong>cardBoardEngine</strong>: modular layout, BFS pathfinding, minimap HUD, flashlight systems, and Windows + macOS builds (<code>betaVersionV2-windows</code> branch).</p>
               </div>
             </article>
 
@@ -676,37 +676,40 @@ cmake --build ../temp/build-boxu --config Release</pre>
 
           <!-- TEAM GAME PROJECT -->
           <section class="section-block" id="team-project" aria-labelledby="team-heading">
-            <h2 class="section-eyebrow section-eyebrow--steel" id="team-heading">Team Game Project</h2>
-            <p class="lede">COMP710 group deliverable. The full game runs on <strong>cardBoardEngine</strong>, the shared C++ codebase I built so the team could develop and hand in on Mac and Windows.</p>
+            <h2 class="section-eyebrow section-eyebrow--steel" id="team-heading">Group Game Project</h2>
+            <p class="lede">COMP710 group deliverable. The full game runs on <strong>cardBoardEngine</strong>, the shared C++ codebase I built so the group could develop and hand in on Mac and Windows.</p>
             <article class="ribbon-card" data-animate="card">
-              <h3 class="ribbon-card__title">cardBoardEngine team codebase</h3>
+              <h3 class="ribbon-card__title">cardBoardEngine</h3>
               <div class="ribbon-card__body ribbon-card__body--steel">
                 <p><strong>Standalone C++ repo</strong>, not part of Boxu. Clone <a class="text-link" href="https://github.com/AMGKompressor/cardBoardEngine" target="_blank" rel="noopener noreferrer">AMGKompressor/cardBoardEngine</a> only, then add the <code>lib/</code> folder with SDL2, SDL2_image, and GLEW as described in the repo README.</p>
                 <a class="sticker" href="https://github.com/AMGKompressor/cardBoardEngine" target="_blank" rel="noopener noreferrer">View cardBoardEngine on GitHub</a>
+                <figure class="comp612-shot">
+                  <img src="assets/images/cardboard-engine.jpg" alt="cardBoardEngine in play: flashlight cone, battery pickups, minimap HUD, and health bar in a top-down stealth level" width="1024" height="592" loading="lazy">
+                </figure>
 
                 <p class="field-label">Purpose</p>
-                <p>Boxu proved the core stealth ideas but could not grow into everything I wanted within the individual project timeline. Refactoring those working systems into a standalone engine let the team game inherit the vision mask, collision, and footstep logic, then pathfinding, minimap, and full multi-enemy gameplay on top.</p>
-                <p>Evolve Boxu’s monolithic layout into a lighter, team-friendly engine: clear modules, tunable <code>PlayerConfig</code>, and builds teammates can run on <strong>macOS</strong> and <strong>Windows</strong> for submission.</p>
+                <p>Boxu proved the core stealth ideas but could not grow into everything I wanted within the individual project timeline. Refactoring those working systems into a standalone engine let the group game inherit the vision mask, collision, and footstep logic, then pathfinding, minimap, and full multi-enemy gameplay on top.</p>
+                <p>Evolve Boxu’s monolithic layout into a lighter, modular engine: clear modules, tunable <code>PlayerConfig</code>, and builds anyone on the project can run on <strong>macOS</strong> and <strong>Windows</strong> for submission.</p>
                 <p class="field-label">Challenge</p>
                 <p>Boxu <code>game.cpp</code> had grown hard to navigate; parallel edits on player, map, and rendering were risky. The group game also needed a documented Windows path (Visual Studio 2022, Win32, runtime DLLs beside the executable).</p>
                 <p class="field-label">Approach</p>
                 <p>Split shared systems into <code>framework/</code>, <code>src/Player/</code>, <code>src/Map/</code>, and a thin <code>CardBoardApp</code> loop. CMake produces two targets from the same tree:</p>
                 <ul>
                   <li><strong><code>cardboard</code></strong>, slimmer modular engine demo (<code>CARDBOARD_BUILD_FULL_GAME=OFF</code>)</li>
-                  <li><strong><code>tgp</code></strong>, full team game: <code>SceneCardBoard</code>, <code>EnemyManager</code>, <code>NavGrid</code>, battery pickups, ImGui UI, optional Xbox controller input</li>
+                  <li><strong><code>tgp</code></strong>, full game target: <code>SceneCardBoard</code>, <code>EnemyManager</code>, <code>NavGrid</code>, battery pickups, ImGui UI, optional Xbox controller input</li>
                 </ul>
                 <p>Shaders and textures copy next to the executable on post-build; Mac can use Homebrew or <code>lib/</code>; Windows links the x86 libraries from <code>lib/</code>.</p>
                 <p class="field-label">Result</p>
                 <p>Movement, sprint, OBB collision, footstep noise pulses, and <code>vision_mask</code> lighting live in dedicated modules. The <code>tgp</code> build adds enemy types (Spirit, Hidden, Revenant), battery pickups, health damage, spawn zones, and map tuning via <code>BasicMapLayout</code>.</p>
-                <p class="field-label"><code>betaVersionV2-windows</code>, latest team build</p>
+                <p class="field-label"><code>betaVersionV2-windows</code>, latest shipping build</p>
                 <p>Checked out from GitHub (Jun 2026). On top of the full <code>tgp</code> game loop, this branch adds:</p>
                 <ul>
                   <li><strong><code>NavGrid</code> + BFS pathfinding</strong> divides the level into 48 px walkable cells from the same wall geometry as player collision. A breadth-first search builds waypoint paths so enemies chase and relocate around obstacles instead of cutting through walls. Hidden enemies pick a new walkable cell after flashlight stun. Press <strong>H</strong> to draw green walkable nodes in view (debug overlay).</li>
-                  <li><strong>Minimap HUD</strong>, a top-right corner panel shows the whole map scaled down: wall lines from <code>Map</code> wire segments, your blip, and enemy dots only inside a tunable reveal radius (radar-style, default ~520 px). Tuning lives in <code>MinimapConfig.h</code>; ImGui (<code>`</code> key) adjusts reveal radius live for teammates.</li>
+                  <li><strong>Minimap HUD</strong>, a top-right corner panel shows the whole map scaled down: wall lines from <code>Map</code> wire segments, your blip, and enemy dots only inside a tunable reveal radius (radar-style, default ~520 px). Tuning lives in <code>MinimapConfig.h</code>; ImGui (<code>`</code> key) adjusts reveal radius at runtime.</li>
                   <li><strong>Full-game polish</strong>: vision mask respects walls, stun flee/respawn, item batteries, ImGui debug UI, and documented Windows/Mac CMake for hand-in.</li>
                 </ul>
-                <p class="field-label">From Boxu vision cone → team flashlight</p>
-                <p>Reused Boxu’s GLSL pair, then extended it for the group game (<code>Player_1</code> / <code>PlayerConfig</code>):</p>
+                <p class="field-label">Flashlight and vision</p>
+                <p>Reused Boxu’s GLSL pair, then extended it for <code>tgp</code> (<code>Player_1</code> / <code>PlayerConfig</code>):</p>
                 <ul>
                   <li><strong>Ambient radius</strong>, 72 px lit bubble around the player</li>
                   <li><strong>LMB</strong> toggles flashlight. Charge drains while on and recharges when off.</li>
@@ -740,13 +743,13 @@ tgp.exe</pre>
                     <tr><td>Player</td><td><code>src/Player/</code></td><td>Movement, flashlight, hitbox, footstep pulses</td></tr>
                     <tr><td>Map</td><td><code>src/Map/</code></td><td>Walls, collision, floor draw</td></tr>
                     <tr><td>App</td><td><code>src/CardBoardApp.*</code></td><td>Modular demo loop</td></tr>
-                    <tr><td>Full game</td><td><code>SceneCardBoard</code>, <code>Enemy*</code>, <code>EnemyManager</code></td><td>Team gameplay scene (<code>tgp</code> target)</td></tr>
+                    <tr><td>Full game</td><td><code>SceneCardBoard</code>, <code>Enemy*</code>, <code>EnemyManager</code></td><td>Main gameplay scene (<code>tgp</code> target)</td></tr>
                     <tr><td>Pathfinding</td><td><code>NavGrid.cpp</code></td><td>Wall-aware grid; BFS paths for chase + stun respawn</td></tr>
                     <tr><td>Minimap</td><td><code>Minimap.cpp</code>, <code>MinimapConfig.h</code></td><td>Corner HUD with full map, walls, and nearby enemy blips</td></tr>
                   </tbody>
                 </table>
                 <p class="field-label">Reflection</p>
-                <p>Splitting <code>cardboard</code> vs <code>tgp</code> let me keep a clean teaching demo while the team iterated on enemies and level spawns in the full target. Boxu had shown what was possible; cardBoardEngine was where those ideas could breathe under a shared deadline. BFS on a coarse grid was enough for fair chase without a full nav-mesh; the minimap gave playtesters layout awareness without spoiling distant enemies.</p>
+                <p>Splitting <code>cardboard</code> vs <code>tgp</code> let me keep a clean teaching demo while we iterated on enemies and level spawns in the full game. Boxu had shown what was possible; cardBoardEngine was where those ideas could breathe under a shared deadline. BFS on a coarse grid was enough for fair chase without a full nav-mesh; the minimap gave playtesters layout awareness without spoiling distant enemies.</p>
               </div>
             </article>
 
@@ -754,20 +757,21 @@ tgp.exe</pre>
               <h3 class="ribbon-card__title">My programming contribution</h3>
               <div class="ribbon-card__body ribbon-card__body--periwinkle">
                 <p class="field-label">Purpose</p>
-                <p>Document what I owned on the group game, not a second Boxu port, but the engine and systems the team shipped from after the individual build ran into time and technical limits.</p>
+                <p>Boxu was my individual game. It proved the stealth loop worked, but the code was stuck in a single large <code>game.cpp</code> and I ran out of time to add pathfinding, a proper minimap, and more enemy behaviour. I pulled the parts that already worked into <code>cardBoardEngine</code>, and the group game runs on that engine instead of starting again.</p>
+                <p>For a small personal or group project, rebuilding from scratch would mean spending weeks on collision, shaders, footstep audio, and Mac/Windows builds before you touch new ideas. cardBoardEngine already covers that foundation in separate modules, so you can tune gameplay in <code>PlayerConfig</code>, drop in new enemies, and let more than one programmer edit the repo without everything breaking. The group build added the systems Boxu never had room for. Below is what I implemented in code.</p>
                 <p class="field-label">What I contributed</p>
                 <ul>
-                  <li><strong>Standalone repo:</strong> <code>cardBoardEngine</code> decoupled from Boxu so the team clones one project with documented Mac and Windows steps.</li>
+                  <li><strong>Standalone repo:</strong> <code>cardBoardEngine</code> decoupled from Boxu so the group clones one project with documented Mac and Windows steps.</li>
                   <li><strong><code>tgp</code> / <code>SceneCardBoard</code></strong>, integrated player, map, UI, items, and enemy systems in one scene loop.</li>
                   <li><strong>Enemy stack:</strong> <code>EnemyManager</code> + three enemy types (Spirit, Hidden, Revenant) with flashlight stun flee and respawn.</li>
                   <li><strong>BFS pathfinding:</strong> <code>NavGrid</code> marks walkable cells from map walls; enemies follow BFS waypoint paths when chasing or relocating after stun (debug walkable nodes with <strong>H</strong>).</li>
                   <li><strong>Minimap HUD</strong>, corner radar of the full level with wall overlay; enemy blips only within a tunable reveal radius so distant threats stay hidden.</li>
-                  <li><strong>Lighting gameplay:</strong> flashlight charge, batteries, and Space stun cone carried from Boxu’s <code>vision_mask</code> work into the group build.</li>
+                  <li><strong>Lighting gameplay:</strong> flashlight charge, batteries, and Space stun cone carried from Boxu’s <code>vision_mask</code> work into <code>tgp</code>.</li>
                 </ul>
                 <p class="field-label">Result</p>
-                <p>The group game ships from <code>cardBoardEngine</code> on branch <code>betaVersionV2-windows</code> (<code>tgp.exe</code> Windows Release for hand-in; Mac builds for local iteration). It delivers more of the original design intent than Boxu could alone: fair enemy routing, HUD tools for playtesting, and room for teammates to iterate in parallel. Boxu remains the polished individual slice on this portfolio; the engine is where the project scaled.</p>
+                <p>The group game ships from <code>cardBoardEngine</code> on branch <code>betaVersionV2-windows</code> (<code>tgp.exe</code> Windows Release for hand-in; Mac builds for local iteration). It delivers more of the original design intent than Boxu could alone: fair enemy routing, HUD tools for playtesting, and room to iterate in parallel. Boxu remains the polished individual slice on this portfolio; the engine is where the project scaled.</p>
                 <p class="field-label">Reflection</p>
-                <p>Extracting Boxu into modules was the right call once individual scope and technical debt collided with the group deadline. The team could use what already worked without re-solving collision or lighting, and I could focus new time on systems Boxu never had time for (BFS nodes, minimap, Windows CMake. Module boundaries helped once several people edited player and map logic at once.</p>
+                <p>Extracting Boxu into modules was the right call once individual scope and technical debt collided with the group deadline. Everyone could use what already worked without re-solving collision or lighting, and I could focus new time on systems Boxu never had time for (BFS nodes, minimap, Windows CMake). Module boundaries helped once several people edited player and map logic at once.</p>
               </div>
             </article>
           </section>
@@ -802,7 +806,7 @@ tgp.exe</pre>
           <a href="#boxu">Boxu</a>
           <a href="#demos">Tech Demos</a>
           <a href="#projects">Projects</a>
-          <a href="#team-project">Team Game</a>
+          <a href="#team-project">Group Game</a>
           <a href="#contact">Contact</a>
           <a href="comp612.html">COMP612 (2025)</a>
         </nav>
