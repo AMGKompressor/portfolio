@@ -281,6 +281,7 @@
 }
 
 .cert-seal {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -295,19 +296,45 @@
   border: 2px solid var(--color-frame);
   text-decoration: none;
   color: inherit;
-  transition: transform 0.15s ease;
+  cursor: pointer;
+  z-index: 0;
+  animation: cert-seal-bounce 2.4s ease-in-out infinite;
+}
+
+.cert-seal::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid var(--color-yellow-sticker);
+  box-shadow: 0 0 10px 2px rgba(252, 194, 15, 0.45);
+  pointer-events: none;
+  z-index: -1;
+  animation: cert-seal-halo 2.2s ease-in-out infinite;
 }
 
 .cert-seal:hover,
 .cert-seal:focus-visible {
-  transform: scale(1.05);
+  animation: none;
+  transform: scale(1.08);
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
+.cert-seal:hover::after,
+.cert-seal:focus-visible::after {
+  animation: none;
+  opacity: 1;
+  box-shadow: 0 0 16px 5px rgba(252, 194, 15, 0.85);
+}
+
 .cert-seal--current {
-  pointer-events: none;
   box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25);
+  animation-duration: 3s;
+}
+
+.cert-seal--current::after {
+  animation-duration: 2.8s;
 }
 
 .cert-seal--comp710 {

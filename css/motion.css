@@ -22,6 +22,38 @@ html.js-scroll-reveal:not(.reveal-initialized) .footer-band > p {
   will-change: transform;
 }
 
+@keyframes cert-seal-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes cert-seal-halo {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+    box-shadow: 0 0 6px 1px rgba(252, 194, 15, 0.35);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 0 18px 6px rgba(252, 194, 15, 0.9);
+  }
+}
+
+.cert-seal {
+  will-change: transform;
+}
+
+.cert-seal::after {
+  will-change: transform, opacity, box-shadow;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.js-scroll-reveal [data-animate="card"]:not(.hero-card),
   html.js-scroll-reveal .section-block:not(#home) > .lede,
@@ -36,7 +68,15 @@ html.js-scroll-reveal:not(.reveal-initialized) .footer-band > p {
 
   [data-animate],
   .section-eyebrow,
-  .hero-photo-notch img {
+  .hero-photo-notch img,
+  .cert-seal {
+    will-change: auto;
+    animation: none;
+  }
+
+  .cert-seal::after {
+    animation: none;
+    opacity: 0.6;
     will-change: auto;
   }
 }
