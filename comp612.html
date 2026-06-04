@@ -47,7 +47,7 @@
         <main class="main-stack" id="main">
           <section class="section-block" id="overview" aria-labelledby="overview-heading">
             <h1 class="display-title" id="overview-heading">COMP612 Projects</h1>
-            <p class="lede">Two major assignments from my 2025 computer graphics paper: a 2D <strong>Snow Scene</strong> with procedural terrain, a particle system, and a primitive-built snowman, and a 3D <strong>Helicopter</strong> scene with flight, lighting, textures, and ground collision. Both projects are documented in full work logs (July–October 2025).</p>
+            <p class="lede">2025 graphics coursework: a 2D <strong>snow scene</strong> and a 3D <strong>helicopter</strong> flight demo. Work logs are linked below.</p>
           </section>
 
           <section class="section-block" id="snow-scene" aria-labelledby="snow-heading">
@@ -73,24 +73,22 @@
                   </details>
                 </div>
                 <p class="field-label">Purpose</p>
-                <p>Show procedural 2D graphics in C: irregular terrain, by-vertex colour and alpha blending, a layered sky, a character built from primitives, and a reusable snow particle system with front/back depth rules.</p>
+                <p>2D OpenGL scene: hills, sky, snowman, and falling snow with front/back layers.</p>
                 <p class="field-label">What I built</p>
                 <ul>
-                  <li>Irregular hill polygon with by-vertex white gradient (<code>gradD</code> tuning); 13 ground control points for varied silhouettes</li>
-                  <li>Sky drawn as geometry with a five-layer gradient (not only <code>glClearColor</code>)</li>
-                  <li><strong>Procedural snowman</strong>: body, head, arms, carrot nose, eyes, and optional <strong>top hat</strong> with per-part Z ordering and radial gradients for a pseudo-3D look</li>
-                  <li>Snow particles (up to 1,500 in the shipped build; tested far higher): spawn over time, sway, fall with gravity, fade near the ground, recycle, and wrap horizontally so flakes stay in view</li>
-                  <li><strong>S</strong> toggles snowfall; <strong>Q</strong> quits (ESC avoided after it caused Mac key-repeat side effects when killing the process from the terminal)</li>
-                  <li>Extra features from the brief: hat collision on the <strong>front</strong> snow layer only (hat position shared into <code>particle.c</code> via <code>hatAdjustment</code>), wind on arrow keys, colour-coded particle HUD, diagnostic mode (green = front layer, red = behind the snowman)</li>
+                  <li>Curved ground and gradient sky</li>
+                  <li>Snowman from simple shapes + optional top hat</li>
+                  <li>Particle snow (toggle with S, quit with Q)</li>
+                  <li>Wind on arrow keys, hat blocks front-layer flakes</li>
                 </ul>
                 <p class="field-label">Challenge</p>
-                <p>Random terrain vertices re-generated every frame made the ground look like it was spinning; stable hills fixed that. The snowman figure vanished more than once: a typo in <code>glVertex2f</code>, duplicate torso coordinates, and draw-order bugs (sky drawn before ground hid the body). Layering took repeated passes until ground was drawn first and face parts sat in front of the head. The HUD refused to update until I moved live stats into <code>idle()</code> instead of <code>display()</code>, and double <code>glutSwapBuffers</code> caused screen flashing.</p>
+                <p>Draw order and typos kept hiding the snowman. The HUD only updated once I moved stats to <code>idle()</code>.</p>
                 <p class="field-label">Approach</p>
-                <p>Iterative Mac builds, then Visual Studio packaging. I separated ground mesh from gradient logic so tuning did not shrink the hill mesh. Particle opacity falls off toward the ground; flakes that leave the left/right edge respawn on the opposite side. Hat collision uses the same global offset as the drawn hat so the hitbox moves when the hat is raised for debugging.</p>
+                <p>Build on Mac, package for Windows. Tune ground, particles, and layers separately.</p>
                 <p class="field-label">Result</p>
-                <p>Snow falls in front of and behind the snowman as required, the hat deflects front-layer flakes, and the scene reads clearly on both Mac and Windows. Full day-by-day notes are in the work log PDF above.</p>
+                <p>Snow reads in front and behind the figure; hat collision works. See the work log for details.</p>
                 <p class="field-label">Reflection</p>
-                <p>Most bugs were single typos or draw order, not bad math. I would lock Z-layer conventions on paper before adding optional features (hat, wind), and capture milestone screenshots so portfolio pages do not rely on memory alone.</p>
+                <p>Plan draw layers on paper first next time; most fixes were ordering, not maths.</p>
               </div>
             </article>
           </section>
@@ -118,26 +116,22 @@
                   </details>
                 </div>
                 <p class="field-label">Purpose</p>
-                <p>Apply the 3D pipeline at scene scale: perspective camera, depth testing, lighting, texturing, fog, and grounded flight with a consistent metre-based world and matrix-only transforms (as required).</p>
+                <p>3D flight sandbox: camera, lighting, textures, fog, and landing on terrain.</p>
                 <p class="field-label">What I built</p>
                 <ul>
-                  <li>World scale: <strong>1.0 GL unit = 10.0 metres</strong> (helicopter length ~10–15 m in real life, so one unit ≈ one rotor span)</li>
-                  <li>Fuselage as a high-slice sphere (early “lemon” mesh replaced after lighting looked harsh), rear rotor on the <strong>Z</strong> axis, landing gear, wireframe toggle</li>
-                  <li>Camera controls; <strong>I</strong> / <strong>O</strong> zoom (Mac build lacks reliable mouse-wheel zoom in GLUT)</li>
-                  <li><code>GL_DEPTH_TEST</code> so the craft sits above terrain and lighting reads correctly from below as well as above</li>
-                  <li>Full flight input with corrected sin/cos so movement matches facing after a classic “flies left while pointing right” bug</li>
-                  <li>Ground contact via landing gear with a buffer band (hard <code>Y = 3.51f</code> lock had frozen take-off; buffered collision fixed sink and stuck-on-ground issues)</li>
-                  <li>Directional sun (straight-down angle after oblique sun looked wrong) plus helicopter spotlight with attenuation tuning; later texture pass and fog with <strong>F</strong> to compare readability</li>
-                  <li>HUD: grounded vs flying, propeller RPM ramp before take-off; animated windmill in the scene</li>
+                  <li>Helicopter mesh, rotors, landing gear</li>
+                  <li>Flyable controls with sensible scale (1 unit ≈ 10 m)</li>
+                  <li>Depth test, sun + spotlight, optional fog (F)</li>
+                  <li>HUD for grounded vs flying; simple scenery</li>
                 </ul>
                 <p class="field-label">Challenge</p>
-                <p>Lighting stayed wrong until depth test was enabled. Movement direction disagreed with rotation until trigonometry matched OpenGL’s axes. High-speed landing overshot the Y limit; forcing Y each frame created a circular dependency until a buffer zone and debug prints verified contact at speed. Textures and fog each dimmed the scene and needed re-tuned diffuse/specular and spotlight attenuation. A corrupted ground texture was recovered from backup. Switching from <code>GL_COLOR</code> to <code>GL_MATERIAL</code> removed a liked two-tone look but matched the lighting model better.</p>
+                <p>Lighting and movement direction were wrong until depth test and trig were fixed. Landing needed a buffer zone, not a hard Y lock.</p>
                 <p class="field-label">Approach</p>
-                <p>Milestone zips from first ground plane through V2.6 (textures): camera and scale first, then rotors and zoom binds, then physics, then sun/spotlight and trees, then textures/fog/HUD. ESC closes cleanly (same lesson as the snowman project). Milestones and bugs are recorded in the work log PDF above.</p>
+                <p>Milestone builds: camera first, then flight, lighting, textures, HUD.</p>
                 <p class="field-label">Result</p>
-                <p>Controllable helicopter with believable scale, working ground contact, textured fuselage, and readable lighting with optional fog. Scene extras (HUD, windmill) show the loop beyond “fly only.”</p>
+                <p>Stable flight, grounded landing, readable scene on Mac and Windows.</p>
                 <p class="field-label">Reflection</p>
-                <p>Depth test and scale should be day-one checks; I lost time on lighting that depth sorting solved in one line. I would prototype landing collision with max-speed tests before spotlight polish, and keep texture backups under version control.</p>
+                <p>Turn on depth test early; test landing at speed before polishing lights.</p>
               </div>
             </article>
           </section>

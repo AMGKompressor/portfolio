@@ -1023,6 +1023,10 @@
   line-height: 1.45;
 }
 
+.engine-diagram-card .field-label + .diagram-legend {
+  margin-bottom: 10px;
+}
+
 .diagram-legend li {
   margin-bottom: 4px;
 }
